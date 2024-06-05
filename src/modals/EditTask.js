@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, MenuItem, Select } from '@mui/material';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
+    const [deadline, setDeadline] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,6 +25,7 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
         setTaskName(taskObj.Name);
         setDescription(taskObj.Description);
         setCategory(taskObj.Category);
+        setDeadline(taskObj.Deadline ? new Date(taskObj.Deadline) : null);
     }, [taskObj]);
 
     const handleUpdate = (e) => {
@@ -29,6 +34,7 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
         tempObj['Name'] = taskName;
         tempObj['Description'] = description;
         tempObj['Category'] = category;
+        tempObj['Deadline'] = deadline;
         updateTask(tempObj);
     };
 
@@ -70,6 +76,12 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
                         <MenuItem value="Shopping">장볼거</MenuItem>
                         <MenuItem value="Guitar">기타</MenuItem>
                     </Select>
+                    <DatePicker
+                        selected={deadline}
+                        onChange={(date) => setDeadline(date)}
+                        dateFormat="yyyy-MM-dd"
+                        placeholderText="Deadline"
+                    />
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

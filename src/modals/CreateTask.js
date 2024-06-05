@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, MenuItem, Select } from '@mui/material';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 const CreateTaskPopup = ({ modal, toggle, save }) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
+    const [deadline, setDeadline] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,6 +27,7 @@ const CreateTaskPopup = ({ modal, toggle, save }) => {
         taskObj["Name"] = taskName;
         taskObj["Description"] = description;
         taskObj["Category"] = category;
+        taskObj["Deadline"] = deadline;
         save(taskObj);
     };
 
@@ -64,6 +69,12 @@ const CreateTaskPopup = ({ modal, toggle, save }) => {
                         <MenuItem value="Shopping">장볼거</MenuItem>
                         <MenuItem value="Guitar">기타</MenuItem>
                     </Select>
+                    <DatePicker
+                        selected={deadline}
+                        onChange={(date) => setDeadline(date)}
+                        dateFormat="yyyy-MM-dd"
+                        placeholderText="Deadline"
+                    />
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
