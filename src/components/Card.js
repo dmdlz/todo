@@ -41,16 +41,15 @@ const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
 
     return (
         <Box sx={{  width : '300px' ,mr: 5, position: 'relative' }}>
-            <Box sx={{ backgroundColor: primaryColor, height: '10px' }} />
-            <Box sx={{ height : '170px',backgroundColor: secondaryColor, p: 2, borderRadius: 2 }}>
+            <Box sx={{ backgroundColor: isChecked ? "#888888" : primaryColor, height: '10px' }} />
+            <Box sx={{ height : '170px',backgroundColor: isChecked ? "#888888" : secondaryColor, p: 2, borderRadius: 2 }}>
                 <Checkbox checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} sx={{ width: 50 }} />
                 <Typography
                     variant="h6"
                     component="span"
                     sx={{
-                        backgroundColor: secondaryColor,
-                        borderRadius: 1,
-                        textDecoration: isChecked ? 'line-through' : 'none'
+                        backgroundColor: isChecked ? "#888888" : secondaryColor,
+                        borderRadius: 1
                     }}
                 >
                     {taskObj.Name}

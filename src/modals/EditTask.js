@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, MenuItem, Select } from '@mui/material';
 
 const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === "taskName") {
             setTaskName(value);
-        } else {
+        } else if (name === "description") {
             setDescription(value);
+        } else if (name === "category") {
+            setCategory(value);
         }
     };
 
     useEffect(() => {
         setTaskName(taskObj.Name);
         setDescription(taskObj.Description);
+        setCategory(taskObj.Category);
     }, [taskObj]);
 
     const handleUpdate = (e) => {
@@ -24,6 +28,7 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
         let tempObj = {};
         tempObj['Name'] = taskName;
         tempObj['Description'] = description;
+        tempObj['Category'] = category;
         updateTask(tempObj);
     };
 
@@ -52,6 +57,19 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
                         name="description"
                         margin="dense"
                     />
+                    <Select
+                        label="Category"
+                        value={category}
+                        onChange={handleChange}
+                        name="category"
+                        margin="dense"
+                        fullWidth
+                    >
+                        <MenuItem value="Work">일/과제</MenuItem>
+                        <MenuItem value="Personal">약속</MenuItem>
+                        <MenuItem value="Shopping">장볼거</MenuItem>
+                        <MenuItem value="Guitar">기타</MenuItem>
+                    </Select>
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
