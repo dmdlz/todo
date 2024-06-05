@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, MenuItem, Select } from '@mui/material';
 
 const CreateTaskPopup = ({ modal, toggle, save }) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState(''); // 카테고리 state 추가
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name === "taskName") {
             setTaskName(value);
-        } else {
+        } else if (name === "description") {
             setDescription(value);
+        } else if (name === "category") { // 카테고리 변경 핸들러 추가
+            setCategory(value);
         }
     };
 
@@ -19,6 +22,7 @@ const CreateTaskPopup = ({ modal, toggle, save }) => {
         let taskObj = {};
         taskObj["Name"] = taskName;
         taskObj["Description"] = description;
+        taskObj["Category"] = category; // 카테고리 정보 추가
         save(taskObj);
     };
 
@@ -50,6 +54,22 @@ const CreateTaskPopup = ({ modal, toggle, save }) => {
                             name="description"
                             margin="dense"
                         />
+                    </div>
+                    <div className="form-group">
+                        <Select
+                            label="Category"
+                            value={category}
+                            onChange={handleChange}
+                            name="category"
+                            margin="dense"
+                            fullWidth
+                        >
+                            <MenuItem value="Work">일/과제</MenuItem>
+                            <MenuItem value="Personal">약속</MenuItem>
+                            <MenuItem value="Shopping">장볼거</MenuItem>
+                            <MenuItem value="Guitar">기타</MenuItem>
+                            
+                        </Select>
                     </div>
                 </DialogContentText>
             </DialogContent>
