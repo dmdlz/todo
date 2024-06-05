@@ -32,30 +32,26 @@ const EditTaskPopup = ({ modal, toggle, updateTask, taskObj }) => {
             <DialogTitle>Update Task</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    <div className="form-group">
-                        <TextField
-                            label="Task Name"
-                            variant="outlined"
-                            fullWidth
-                            value={taskName}
-                            onChange={handleChange}
-                            name="taskName"
-                            margin="dense"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <TextField
-                            label="Description"
-                            variant="outlined"
-                            fullWidth
-                            multiline
-                            rows={5}
-                            value={description}
-                            onChange={handleChange}
-                            name="description"
-                            margin="dense"
-                        />
-                    </div>
+                    <TextField
+                        label="Task Name"
+                        variant="outlined"
+                        fullWidth
+                        value={taskName}
+                        onChange={handleChange}
+                        name="taskName"
+                        margin="dense"
+                    />
+                    <TextField
+                        label="Description"
+                        variant="outlined"
+                        fullWidth
+                        multiline
+                        rows={5}
+                        value={description}
+                        onChange={handleChange}
+                        name="description"
+                        margin="dense"
+                    />
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

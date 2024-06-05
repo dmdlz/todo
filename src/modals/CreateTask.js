@@ -4,7 +4,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 const CreateTaskPopup = ({ modal, toggle, save }) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState(''); // 카테고리 state 추가
+    const [category, setCategory] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -12,7 +12,7 @@ const CreateTaskPopup = ({ modal, toggle, save }) => {
             setTaskName(value);
         } else if (name === "description") {
             setDescription(value);
-        } else if (name === "category") { // 카테고리 변경 핸들러 추가
+        } else if (name === "category") {
             setCategory(value);
         }
     };
@@ -22,7 +22,7 @@ const CreateTaskPopup = ({ modal, toggle, save }) => {
         let taskObj = {};
         taskObj["Name"] = taskName;
         taskObj["Description"] = description;
-        taskObj["Category"] = category; // 카테고리 정보 추가
+        taskObj["Category"] = category;
         save(taskObj);
     };
 
@@ -31,46 +31,39 @@ const CreateTaskPopup = ({ modal, toggle, save }) => {
             <DialogTitle>Create Task</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    <div className="form-group">
-                        <TextField
-                            label="Task Name"
-                            variant="outlined"
-                            fullWidth
-                            value={taskName}
-                            onChange={handleChange}
-                            name="taskName"
-                            margin="dense"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <TextField
-                            label="Description"
-                            variant="outlined"
-                            fullWidth
-                            multiline
-                            rows={5}
-                            value={description}
-                            onChange={handleChange}
-                            name="description"
-                            margin="dense"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <Select
-                            label="Category"
-                            value={category}
-                            onChange={handleChange}
-                            name="category"
-                            margin="dense"
-                            fullWidth
-                        >
-                            <MenuItem value="Work">일/과제</MenuItem>
-                            <MenuItem value="Personal">약속</MenuItem>
-                            <MenuItem value="Shopping">장볼거</MenuItem>
-                            <MenuItem value="Guitar">기타</MenuItem>
-                            
-                        </Select>
-                    </div>
+                    <TextField
+                        label="Task Name"
+                        variant="outlined"
+                        fullWidth
+                        value={taskName}
+                        onChange={handleChange}
+                        name="taskName"
+                        margin="dense"
+                    />
+                    <TextField
+                        label="Description"
+                        variant="outlined"
+                        fullWidth
+                        multiline
+                        rows={5}
+                        value={description}
+                        onChange={handleChange}
+                        name="description"
+                        margin="dense"
+                    />
+                    <Select
+                        label="Category"
+                        value={category}
+                        onChange={handleChange}
+                        name="category"
+                        margin="dense"
+                        fullWidth
+                    >
+                        <MenuItem value="Work">일/과제</MenuItem>
+                        <MenuItem value="Personal">약속</MenuItem>
+                        <MenuItem value="Shopping">장볼거</MenuItem>
+                        <MenuItem value="Guitar">기타</MenuItem>
+                    </Select>
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

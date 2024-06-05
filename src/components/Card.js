@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Checkbox } from '@mui/material';
+import { Checkbox, Box, Typography, Button } from '@mui/material';
 import EditTask from '../modals/EditTask'
 
 const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
@@ -23,12 +23,11 @@ const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
             primaryColor: "gray",
             secondaryColor: "#999999"
         }
-        // 추가 카테고리 색상 정의
     };
 
-    const { primaryColor, secondaryColor } = categories[taskObj.Category] || categories.Work; // 카테고리에 따른 색상 가져오기
+    const { primaryColor, secondaryColor } = categories[taskObj.Category] || categories.Work;
 
-    const toggle = () => {
+    const toggleModal = () => {
         setModal(!modal);
     }
 
@@ -41,20 +40,35 @@ const Card = ({ taskObj, index, deleteTask, updateListArray }) => {
     }
 
     return (
-        <div class="card-wrapper mr-5">
-            <div class="card-top" style={{ "background-color": isChecked ? "black" : primaryColor }}></div>
-            <div class="task-holder">
-                <Checkbox checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />
-                <span class="card-header" style={{ "background-color": isChecked ? "gray" : secondaryColor, "border-radius": "10px", "text-decoration": isChecked ? "line-through" : "none" }}>{taskObj.Name}</span>
-                <p className="mt-3">{taskObj.Description}</p>
-
-                <div style={{ "position": "absolute", "top": "160px", "left": "160px" }}>
-                    <button style={{ "color": primaryColor, "cursor": "pointer" }} onClick={() => setModal(true)}>수정</button>
-                    <button style={{ "color": primaryColor, "cursor": "pointer" }} onClick={handleDelete}>삭제</button>
-                </div>
-            </div>
-            <EditTask modal={modal} toggle={toggle} updateTask={updateTask} taskObj={taskObj} />
-        </div>
+        <Box sx={{  width : '300px' ,mr: 5, position: 'relative' }}>
+            <Box sx={{ backgroundColor: primaryColor, height: '10px' }} />
+            <Box sx={{ height : '170px',backgroundColor: secondaryColor, p: 2, borderRadius: 2 }}>
+                <Checkbox checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} sx={{ width: 50 }} />
+                <Typography
+                    variant="h6"
+                    component="span"
+                    sx={{
+                        backgroundColor: secondaryColor,
+                        borderRadius: 1,
+                        textDecoration: isChecked ? 'line-through' : 'none'
+                    }}
+                >
+                    {taskObj.Name}
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1 }}>
+                    {taskObj.Description}
+                </Typography>
+                <Box sx={{ position: 'absolute', top: 160, left: 160 }}>
+                    <Button onClick={toggleModal} sx={{ color: 'black', cursor: 'pointer' }}>
+                        수정
+                    </Button>
+                    <Button onClick={handleDelete} sx={{ color: 'black', cursor: 'pointer' }}>
+                        삭제
+                    </Button>
+                </Box>
+            </Box>
+            <EditTask modal={modal} toggle={toggleModal} updateTask={updateTask} taskObj={taskObj} />
+        </Box>
     );
 };
 

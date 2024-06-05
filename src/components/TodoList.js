@@ -1,3 +1,5 @@
+
+
 import React, {useEffect, useState} from 'react';
 import CreateTask from '../modals/CreateTask'
 import Card from './Card';
@@ -5,16 +7,15 @@ import Card from './Card';
 const TodoList = () => {
     const [modal, setModal] = useState(false);
     const [taskList, setTaskList] = useState([])
-    
+
     useEffect(() => {
         let arr = localStorage.getItem("taskList")
-       
+
         if(arr){
             let obj = JSON.parse(arr)
             setTaskList(obj)
         }
     }, [])
-
 
     const deleteTask = (index) => {
         let tempList = taskList
@@ -44,12 +45,11 @@ const TodoList = () => {
         setModal(false)
     }
 
-
     return (
         <>
             <div className = "header text-center">
-                <h3>Todo List</h3>
-                <button className = "btn btn-primary mt-2" onClick = {() => setModal(true)} >일 만들기</button>
+                <h1 style={{position:'absolute',left:'50px'}}>Todo List</h1>
+                <button style={{position:'absolute',top:'130px', left:'50px', width:'100px'}} className = "btn btn-primary mt-2" onClick = {() => setModal(true)} >일 만들기</button>
             </div>
             <div className = "task-container">
             {taskList && taskList.map((obj , index) => <Card taskObj = {obj} index = {index} deleteTask = {deleteTask} updateListArray = {updateListArray}/> )}
